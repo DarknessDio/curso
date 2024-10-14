@@ -21,6 +21,52 @@ namespace WPfApp
             InitializeComponent();
         }
 
-        
+        void AddMessage(string message)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                Messages.Content +=
+                $"Mensaje: {message}," +
+                $"Hilo social: {Thread.CurrentThread.ManagedThreadId}";
+            });           
+        }
+
+        void CreateTask()
+        {
+            Task T;
+            Action Code = new Action(ShowMesage);
+            T = new Task(Code);
+            Task T2 = new Task(delegate
+            {
+                MessageBox.Show("Ejecutando una tarea en un metodo anonimo");
+            });
+            Task T3A = new Task(ShowMesage);
+            Task T3 = new Task(
+                ()=> ShowMesage());
+
+            Task T4 = new Task(() => MessageBox.Show("Ejecutando la tarea 4"));
+
+            Task T5 = new Task(() =>
+            {
+                DateTime CurrentDate = DateTime.Today;
+                DateTime StartDate = CurrentDate.AddDays(30);
+                MessageBox.Show($"Tarea 5. Fecha Calculado {StartDate}");
+            });
+
+            Task T6 = new Task((message) =>
+            MessageBox.Show(message.ToString()), "Expresion lambda con parametros");
+
+            Task T7 = new Task(() => AddMessage("Ejecutando la tarea"));
+            T7.Start();
+
+            AddMessage("En el hilo principal");
+        }
+
+        private void ShowMesage()
+        {
+            MessageBox.Show("Ejecutando el metodo ShowMesage");
+        }
+
+
     }
 }
