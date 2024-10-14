@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Northwind.ConsoleApp.Services
+namespace NorthWind.ConsoleApp.Services
 {
     internal class ProductService(IUserActionWriter writer)
     {
